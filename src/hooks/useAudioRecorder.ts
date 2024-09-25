@@ -69,7 +69,7 @@ const useAudioRecorder: (
   /**
    * Calling this method would result in the recording to start. Sets `isRecording` to true
    */
-  const startRecording: () => void = useCallback(() => {
+  const startRecording: () => void = useCallback((timeSlice?: number) => {
     if (timerInterval != null) return;
 
     navigator.mediaDevices
@@ -81,7 +81,7 @@ const useAudioRecorder: (
           mediaRecorderOptions
         );
         setMediaRecorder(recorder);
-        recorder.start();
+        recorder.start(timeSlice ?? 100);
         _startTimer();
 
         recorder.addEventListener("dataavailable", (event) => {
